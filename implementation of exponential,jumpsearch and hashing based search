@@ -1,0 +1,43 @@
+int binarySearch(int arr[], int left, int right, int target) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+}
+
+int exponentialSearch(int arr[], int size, int target) {
+    if (arr[0] == target) return 0;
+    int i = 1;
+    while (i < size && arr[i] <= target) i *= 2;
+    return binarySearch(arr, i / 2, min(i, size - 1), target);
+}
+
+int jumpSearch(int arr[], int size, int target) {
+    int step = sqrt(size);
+    int prev = 0;
+
+    while (arr[min(step, size)-1] < target) {
+        prev = step;
+        step += sqrt(size);
+        if (prev >= size) return -1;
+    }
+
+    while (arr[prev] < target) {
+        prev++;
+        if (prev == min(step, size)) return -1;
+    }
+
+    if (arr[prev] == target) return prev;
+}
+#include <unordered_map>
+
+int hashSearch(int arr[], int size, int target) {
+    unordered_map<int, int> hashTable;
+    for (int i = 0; i < size; i++) {
+        hashTable[arr[i]] = i;
+    }
+    return (hashTable.find(target) != hashTable.end()) ? hashTable[target] :
+    return -1;
+}
