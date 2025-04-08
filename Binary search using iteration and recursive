@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+// Iterative Binary Search
+int binarySearchIterative(int arr[], int size, int target) {
+    int left = 0, right = size - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2; // Avoid overflow
+        if (arr[mid] == target) 
+            return mid; // Target found
+        else if (arr[mid] < target) 
+            left = mid + 1; // Search right half
+        else 
+            right = mid - 1; // Search left half
+    }
+    return -1; // Target not found
+}
+
+int main() {
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 45}; // Sorted array
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 16;
+
+    int result = binarySearchIterative(arr, size, target);
+
+    if (result != -1)
+        cout << "Element found at index " << result << endl;
+    else
+        cout << "Element not found" << endl;
+}
+
+// Recursive Binary Search
+int binarySearchRecursive(int arr[], int left, int right, int target) {
+    if (left > right)
+        return -1; // Base case: target not found
+
+    int mid = left + (right - left) / 2; // Avoid overflow
+
+    if (arr[mid] == target)
+        return mid; // Target found
+    else if (arr[mid] < target)
+        return binarySearchRecursive(arr, mid + 1, right, target); // Search right half
+    else
+        return binarySearchRecursive(arr, left, mid - 1, target); // Search left half
+}
+
+int main() {
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 45}; // Sorted array
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 16;
+
+    int result = binarySearchRecursive(arr, 0, size - 1, target);
+
+    if (result != -1)
+        cout << "Element found at index " << result << endl;
+    else
+        cout << "Element not found" << endl;
+
+    return 0;
+}
+
