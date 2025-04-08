@@ -3,6 +3,7 @@
 using namespace std;
 
 void findSecondAndThirdLargest(int arr[], int size) {
+    
     if (size < 3) {
         cout << "Array must contain at least three elements." << endl;
         return;
